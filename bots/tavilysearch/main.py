@@ -27,6 +27,7 @@ def search_and_extract_urls():
             "max_results": MAX_RESULTS,
             "include_answer": INCLUDE_ANSWER,
         }
+        logging.info(f"Sending request to Tavily API with payload: {payload}")
         response = requests.post(TAVILY_URL, json=payload, timeout=15)
         response.raise_for_status()
         data = response.json()
