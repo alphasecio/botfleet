@@ -48,8 +48,7 @@ def main():
         return
 
     html_content = [
-        f"<h2>News results for: \"{SEARCH_QUERY}\"</h2>",
-        f"<p>Found {len(urls)} results:</p>",
+        f"<p>Latest {len(urls)} results:</p>",
         "<ul>",
     ]
     html_content.extend([f"<li><a href='{url}'>{url}</a></li>" for url in urls])
