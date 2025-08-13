@@ -1,5 +1,6 @@
 import logging
 import requests
+from shared.config import get_env
 from shared.logging_utils import setup_logging
 from shared.email_utils import send_email
 
