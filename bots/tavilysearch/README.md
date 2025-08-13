@@ -43,10 +43,9 @@ Then, on Railway:
 
 
 ### ✉️ Sample Email Alert
+> Subject: Tavily Search Results: `<search query>`
 
-> **News results for: "AI regulation"**
->
-> Found 10 results:
+> Latest 10 results:
 > - `https://example.com/article1`  
 > - `https://example.com/article2`  
 > - ...
