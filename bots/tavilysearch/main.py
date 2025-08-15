@@ -52,7 +52,7 @@ def main():
         return
 
     html_parts = []
-    for i, (title, url) in enumerate(results, start=1):
+    for i, (title, url) in enumerate(urls, start=1):
         html_parts.append(f"<p>{i}. {title}<br><a href='{url}'>{url}</a></p>")
 
     send_email(EMAIL_SUBJECT, "".join(html_parts))
