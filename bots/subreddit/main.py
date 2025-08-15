@@ -11,7 +11,7 @@ CLIENT_ID = get_env("CLIENT_ID")
 CLIENT_SECRET = get_env("CLIENT_SECRET")
 USER_AGENT = get_env("USER_AGENT", "netsec-digest-bot/0.1")
 SUBREDDIT = get_env("SUBREDDIT", "netsec")
-EMAIL_SUBJECT = get_env("EMAIL_SUBJECT", f"Reddit /r/{SUBREDDIT} Top Stories")
+EMAIL_SUBJECT = get_env("EMAIL_SUBJECT", f"Reddit r/{SUBREDDIT} Top Stories")
 
 OAUTH_URL = "https://www.reddit.com/api/v1/access_token"
 BASE_URL = f"https://oauth.reddit.com/r/{SUBREDDIT}/new"
@@ -47,12 +47,12 @@ def main():
         logging.info("No posts fetched, skipping email.")
         return
 
-    html_parts = [f"<h3>Latest posts from r/{SUBREDDIT}</h3>", "<ul>"]
-    for post in posts:
+    html_parts = []
+    for i, post in enumerate(posts, start=1):
         title = post["data"]["title"]
         url = "https://www.reddit.com" + post["data"]["permalink"]
-        html_parts.append(f"<li><a href='{url}'>{title}</a></li>")
-    html_parts.append("</ul>")
+        html_parts.append(f"<p>{i}. {title}<br>"
+                        f"<a href='{url}'>{url}</a></p>")
 
     send_email(EMAIL_SUBJECT, "".join(html_parts))
 
