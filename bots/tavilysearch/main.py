@@ -35,7 +35,11 @@ def search_and_extract_urls():
         response = requests.post(TAVILY_URL, json=payload, headers=headers, timeout=15)
         response.raise_for_status()
         data = response.json()
-        return [r.get("url") for r in data.get("results", []) if r.get("url")]
+        return [
+            (r.get("title"), r.get("url"))
+            for r in data.get("results", [])
+            if r.get("title") and r.get("url")
+        ]
     except Exception as e:
         logging.error(f"Tavily API error: {e}")
         return []
@@ -47,14 +51,11 @@ def main():
         logging.info("No results found, skipping email.")
         return
 
-    html_content = [
-        f"<p>Latest {len(urls)} results:</p>",
-        "<ul>",
-    ]
-    html_content.extend([f"<li><a href='{url}'>{url}</a></li>" for url in urls])
-    html_content.append("</ul>")
+    html_parts = []
+    for i, (title, url) in enumerate(results, start=1):
+        html_parts.append(f"<p>{i}. {title}<br><a href='{url}'>{url}</a></p>")
 
-    send_email(EMAIL_SUBJECT, "".join(html_content))
+    send_email(EMAIL_SUBJECT, "".join(html_parts))
 
 if __name__ == "__main__":
     main()
