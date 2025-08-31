@@ -51,8 +51,7 @@ def main():
     for i, post in enumerate(posts, start=1):
         title = post["data"]["title"]
         url = "https://www.reddit.com" + post["data"]["permalink"]
-        html_parts.append(f"<p>{i}. {title}<br>"
-                        f"<a href='{url}'>{url}</a></p>")
+        html_parts.append(f"<p>{i}. {title} (<a href='{url}'>link</a>)</p>")
 
     send_email(EMAIL_SUBJECT, "".join(html_parts))
 
